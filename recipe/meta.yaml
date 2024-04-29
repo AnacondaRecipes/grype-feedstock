@@ -1,0 +1,47 @@
+{% set name = "grype" %}
+{% set version = "0.75.0" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://github.com/anchore/{{ name|lower }}/archive/refs/tags/v{{ version }}.tar.gz
+  sha256: 5d93535395a6684dee1d9d1d3cde859addd76f56581e0111d95a9c685d582426
+
+build:
+  # script_env:
+  #  - GH_VERSION=v{{ version }}
+  number: 0
+  # binary_relocation: False
+
+requirements:
+  build:
+    - make
+    - m2-make   # [win]
+    - {{ compiler('go') }}
+
+test:
+  # requires:
+  #   - sqlite3
+  commands:
+    - grype help
+    # - grype db status
+
+about:
+  home: https://github.com/anchore/grype
+  license: Apache-2.0
+  license_family: APACHE
+  license_file: LICENSE
+  summary: A vulnerability scanner for container images and filesystems.
+  description: |
+    A vulnerability scanner for container images and filesystems.
+    Easily install the binary to try it out. Works with Syft, 
+    the powerful SBOM (software bill of materials) tool for 
+    container images and filesystems.
+  doc_url: https://github.com/anchore/grype?tab=readme-ov-file
+  dev_url: https://github.com/anchore/grype
+
+extra:
+  recipe-maintainers:
+    - lorepirri
