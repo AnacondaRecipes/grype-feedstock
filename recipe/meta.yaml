@@ -7,25 +7,20 @@ package:
 
 source:
   url: https://github.com/anchore/{{ name|lower }}/archive/refs/tags/v{{ version }}.tar.gz
-  sha256: 5d93535395a6684dee1d9d1d3cde859addd76f56581e0111d95a9c685d582426
+  sha256: cd7029afa414a90d0700dbda1562487b8f8f197408d1b0a76367b854301248f2
 
 build:
-  # script_env:
-  #  - GH_VERSION=v{{ version }}
   number: 0
-  # binary_relocation: False
 
 requirements:
   build:
-    - make
-    - m2-make   # [win]
-    - {{ compiler('go') }}
+    - go
 
 test:
   # requires:
-  #   - sqlite3
+  #   - sqlite
   commands:
-    - grype help
+    - grype --help
     # - grype db status
 
 about:
