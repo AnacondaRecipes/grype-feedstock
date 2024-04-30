@@ -11,17 +11,19 @@ source:
 
 build:
   number: 0
+  # go is not available for s390x
+  skip: true  # [s390x]
 
 requirements:
   build:
+    # we use go directly because we do not have activation feedstocks
+    # therefore we can't use compiler('go') and we skip linting
+    # for should_use_compilers
     - go
 
 test:
-  # requires:
-  #   - sqlite
   commands:
     - grype --help
-    # - grype db status
 
 about:
   home: https://github.com/anchore/grype
@@ -40,3 +42,6 @@ about:
 extra:
   recipe-maintainers:
     - lorepirri
+  skip-lints:
+    - should_use_compilers
+
