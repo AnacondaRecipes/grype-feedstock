@@ -1,0 +1,47 @@
+{% set name = "grype" %}
+{% set version = "0.75.0" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://github.com/anchore/{{ name|lower }}/archive/refs/tags/v{{ version }}.tar.gz
+  sha256: cd7029afa414a90d0700dbda1562487b8f8f197408d1b0a76367b854301248f2
+
+build:
+  number: 0
+  # go is not available for s390x
+  skip: true  # [s390x]
+
+requirements:
+  build:
+    # we use go directly because we do not have activation feedstocks
+    # therefore we can't use compiler('go') and we skip linting
+    # for should_use_compilers
+    - go
+
+test:
+  commands:
+    - grype --help
+
+about:
+  home: https://github.com/anchore/grype
+  license: Apache-2.0
+  license_family: APACHE
+  license_file: LICENSE
+  summary: A vulnerability scanner for container images and filesystems.
+  description: |
+    A vulnerability scanner for container images and filesystems.
+    Easily install the binary to try it out. Works with Syft, 
+    the powerful SBOM (software bill of materials) tool for 
+    container images and filesystems.
+  doc_url: https://github.com/anchore/grype?tab=readme-ov-file
+  dev_url: https://github.com/anchore/grype
+
+extra:
+  recipe-maintainers:
+    - lorepirri
+  skip-lints:
+    - should_use_compilers
+
