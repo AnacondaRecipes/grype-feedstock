@@ -8,7 +8,7 @@ export PATH=${GOPATH}/bin:$PATH
 pushd cmd/${PKG_NAME}
 
 # Build
-go build -v -o ${PKG_NAME} .
+go build -ldflags="-w -s -extldflags '-static' -X main.version=${PKG_VERSION}" -v -o ${PKG_NAME} .
 
 # Install Binary into PREFIX/bin
 mkdir -p $PREFIX/bin

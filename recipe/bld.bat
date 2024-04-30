@@ -7,7 +7,7 @@ cd cmd\%PKG_NAME%
 if errorlevel 1 exit 1
 
 :: Build
-go build -v -o %PKG_NAME%.exe .
+go build -ldflags="-w -s -extldflags '-static' -X main.version=%PKG_VERSION%" -v -o %PKG_NAME%.exe .
 if errorlevel 1 exit 1
 
 :: Install Binary into %SCRIPTS%
